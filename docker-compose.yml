@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/var/www/html
+    container_name: bevatel-app
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=DB
+      - DB_PORT=3306
+      - DB_DATABASE=bevatel_db
+      - DB_USERNAME=task
+      - DB_PASSWORD=pa$$word
+    ports:
+      - "8003:80"
+    depends_on:
+      - DB
+    networks:
+      - bevatel_network
+
+  
+  DB:
+    image: mysql:latest
+    container_name: bevatel_DB
+    environment:
+      MYSQL_ROOT_PASSWORD: pa$$word
+      MYSQL_DATABASE: bevatel_db
+      MYSQL_USER: task
+      MYSQL_PASSWORD: pa$$word
+    ports:
+      - "3309:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - bevatel_network
+
+volumes:
+  db-data:
+
+networks:
+  bevatel_network:
+    driver: bridge
