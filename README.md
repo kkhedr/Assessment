@@ -33,5 +33,6 @@ run : php artisan serve and got to enjoy
 ## migrate and seeder
 you must run : (php artisan migrate --seed) before start enjoy.
 
-
+## import excel file 
+ You must run php artisan queue:work
 ## THANKS :)
